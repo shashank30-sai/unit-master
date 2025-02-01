@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online unit converter for temperature, speed, energy, pressure, and data storage. Accurate and easy-to-use tools for professionals and students.">
+    <title>UnitMaster - Free Online Unit Converter</title>
+    <style>
+        /* Base Styles */
+        :root {
+            --primary: #2A6B84;
+            --secondary: #4CAF50;
+            --accent: #FF9800;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background: #f8f9fa;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search-bar {
+            padding: 0.5rem;
+            border-radius: 4px;
+            border: none;
+            width: 300px;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 2rem;
+        }
+
+        /* Conversion Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Conversion Form */
+        .converter-form {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .input-group {
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        input, select {
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100%;
+        }
+
+        button {
+            background: var(--secondary);
+            color: white;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        /* Monetization Sections */
+        .ad-banner {
+            background: #fff;
+            border: 2px dashed #ddd;
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .premium-section {
+            background: #fff3e0;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .search-bar {
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <h1>UnitMaster</h1>
+            <input type="search" class="search-bar" placeholder="Search conversion tools...">
+            <nav>
+                <a href="#tools" style="color: white;">Tools</a>
+                <a href="#premium" style="color: white; margin-left: 1rem;">Premium</a>
+            </nav>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main>
+            <!-- Unit Conversion Tools -->
+            <div class="tools-grid" id="tools">
+                <!-- Temperature Converter -->
+                <article class="tool-card">
+                    <h2>Temperature Converter</h2>
+                    <form class="converter-form" onsubmit="convertTemperature(event)">
+                        <div class="input-group">
+                            <input type="number" id="tempInput" placeholder="Enter value" required>
+                            <select id="tempFrom">
+                                <option value="celsius">Celsius</option>
+                                <option value="fahrenheit">Fahrenheit</option>
+                                <option value="kelvin">Kelvin</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <select id="tempTo">
+                                <option value="celsius">Celsius</option>
+                                <option value="fahrenheit">Fahrenheit</option>
+                                <option value="kelvin">Kelvin</option>
+                            </select>
+                            <input type="text" id="tempResult" placeholder="Result" readonly>
+                        </div>
+                        <button type="submit">Convert</button>
+                    </form>
+                </article>
+
+                <!-- Speed Converter -->
+                <article class="tool-card">
+                    <h2>Speed Converter</h2>
+                    <form class="converter-form" onsubmit="convertSpeed(event)">
+                        <div class="input-group">
+                            <input type="number" id="speedInput" placeholder="Enter value" required>
+                            <select id="speedFrom">
+                                <option value="kmh">Kilometers/Hour</option>
+                                <option value="mph">Miles/Hour</option>
+                                <option value="ms">Meters/Second</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <select id="speedTo">
+                                <option value="kmh">Kilometers/Hour</option>
+                                <option value="mph">Miles/Hour</option>
+                                <option value="ms">Meters/Second</option>
+                            </select>
+                            <input type="text" id="speedResult" placeholder="Result" readonly>
+                        </div>
+                        <button type="submit">Convert</button>
+                    </form>
+                </article>
+
+                <!-- Energy Converter -->
+                <article class="tool-card">
+                    <h2>Energy Converter</h2>
+                    <form class="converter-form" onsubmit="convertEnergy(event)">
+                        <div class="input-group">
+                            <input type="number" id="energyInput" placeholder="Enter value" required>
+                            <select id="energyFrom">
+                                <option value="joules">Joules</option>
+                                <option value="calories">Calories</option>
+                                <option value="kwh">Kilowatt-Hours</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <select id="energyTo">
+                                <option value="joules">Joules</option>
+                                <option value="calories">Calories</option>
+                                <option value="kwh">Kilowatt-Hours</option>
+                            </select>
+                            <input type="text" id="energyResult" placeholder="Result" readonly>
+                        </div>
+                        <button type="submit">Convert</button>
+                    </form>
+                </article>
+
+                <!-- Pressure Converter -->
+                <article class="tool-card">
+                    <h2>Pressure Converter</h2>
+                    <form class="converter-form" onsubmit="convertPressure(event)">
+                        <div class="input-group">
+                            <input type="number" id="pressureInput" placeholder="Enter value" required>
+                            <select id="pressureFrom">
+                                <option value="pascal">Pascal</option>
+                                <option value="bar">Bar</option>
+                                <option value="psi">PSI</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <select id="pressureTo">
+                                <option value="pascal">Pascal</option>
+                                <option value="bar">Bar</option>
+                                <option value="psi">PSI</option>
+                            </select>
+                            <input type="text" id="pressureResult" placeholder="Result" readonly>
+                        </div>
+                        <button type="submit">Convert</button>
+                    </form>
+                </article>
+
+                <!-- Data Storage Converter -->
+                <article class="tool-card">
+                    <h2>Data Storage Converter</h2>
+                    <form class="converter-form" onsubmit="convertDataStorage(event)">
+                        <div class="input-group">
+                            <input type="number" id="dataInput" placeholder="Enter value" required>
+                            <select id="dataFrom">
+                                <option value="bytes">Bytes</option>
+                                <option value="kb">Kilobytes</option>
+                                <option value="mb">Megabytes</option>
+                                <option value="gb">Gigabytes</option>
+                                <option value="tb">Terabytes</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <select id="dataTo">
+                                <option value="bytes">Bytes</option>
+                                <option value="kb">Kilobytes</option>
+                                <option value="mb">Megabytes</option>
+                                <option value="gb">Gigabytes</option>
+                                <option value="tb">Terabytes</option>
+                            </select>
+                            <input type="text" id="dataResult" placeholder="Result" readonly>
+                        </div>
+                        <button type="submit">Convert</button>
+                    </form>
+                </article>
+            </div>
+
+            <!-- Ad Placement -->
+            <div class="ad-banner">
+                <!-- Google AdSense Code Here -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+                crossorigin="anonymous"></script>
+            </div>
+        </main>
+
+        <!-- Sidebar -->
+        <aside>
+            <div class="premium-section">
+                <h3>Premium Features</h3>
+                <p>Get API access and ad-free experience</p>
+                <button>Upgrade Now</button>
+            </div>
+
+            <!-- Affiliate Section -->
+            <div class="tool-card">
+                <h3>Recommended Tools</h3>
+                <!-- Affiliate links would go here -->
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        // Conversion Factors
+        const temperatureFactors = {
+            celsius: { fahrenheit: (c) => (c * 9/5) + 32, kelvin: (c) => c + 273.15 },
+            fahrenheit: { celsius: (f) => (f - 32) * 5/9, kelvin: (f) => (f - 32) * 5/9 + 273.15 },
+            kelvin: { celsius: (k) => k - 273.15, fahrenheit: (k) => (k - 273.15) * 9/5 + 32 }
+        };
+
+        const speedFactors = {
+            kmh: { mph: 0.621371, ms: 0.277778 },
+            mph: { kmh: 1.60934, ms: 0.44704 },
+            ms: { kmh: 3.6, mph: 2.23694 }
+        };
+
+        const energyFactors = {
+            joules: { calories: 0.239006, kwh: 2.77778e-7 },
+            calories: { joules: 4.184, kwh: 1.16222e-6 },
+            kwh: { joules: 3.6e6, calories: 860421 }
+        };
+
+        const pressureFactors = {
+            pascal: { bar: 1e-5, psi: 0.000145038 },
+            bar: { pascal: 1e5, psi: 14.5038 },
+            psi: { pascal: 6894.76, bar: 0.0689476 }
+        };
+
+        const dataFactors = {
+            bytes: { kb: 0.001, mb: 1e-6, gb: 1e-9, tb: 1e-12 },
+            kb: { bytes: 1000, mb: 0.001, gb: 1e-6, tb: 1e-9 },
+            mb: { bytes: 1e6, kb: 1000, gb: 0.001, tb: 1e-6 },
+            gb: { bytes: 1e9, kb: 1e6, mb: 1000, tb: 0.001 },
+            tb: { bytes: 1e12, kb: 1e9, mb: 1e6, gb: 1000 }
+        };
+
+        // Temperature Converter
+        function convertTemperature(event) {
+            event.preventDefault();
+            const input = parseFloat(document.getElementById('tempInput').value);
+            const from = document.getElementById('tempFrom').value;
+            const to = document.getElementById('tempTo').value;
+
+            if (from === to) {
+                document.getElementById('tempResult').value = input.toFixed(4);
+                return;
+            }
+
+            const result = temperatureFactors[from][to](input);
+            document.getElementById('tempResult').value = result.toFixed(4);
+        }
+
+        // Speed Converter
+        function convertSpeed(event) {
+            event.preventDefault();
+            const input = parseFloat(document.getElementById('speedInput').value);
+            const from = document.getElementById('speedFrom').value;
+            const to = document.getElementById('speedTo').value;
+
+            if (from === to) {
+                document.getElementById('speedResult').value = input.toFixed(4);
+                return;
+            }
+
+            const result = input * speedFactors[from][to];
+            document.getElementById('speedResult').value = result.toFixed(4);
+        }
+
+        // Energy Converter
+        function convertEnergy(event) {
+            event.preventDefault();
+            const input = parseFloat(document.getElementById('energyInput').value);
+            const from = document.getElementById('energyFrom').value;
+            const to = document.getElementById('energyTo').value;
+
+            if (from === to) {
+                document.getElementById('energyResult').value = input.toFixed(4);
+                return;
+            }
+
+            const result = input * energyFactors[from][to];
+            document.getElementById('energyResult').value = result.toFixed(4);
+        }
+
+        // Pressure Converter
+        function convertPressure(event) {
+            event.preventDefault();
+            const input = parseFloat(document.getElementById('pressureInput').value);
+            const from = document.getElementById('pressureFrom').value;
+            const to = document.getElementById('pressureTo').value;
+
+            if (from === to) {
+                document.getElementById('pressureResult').value = input.toFixed(4);
+                return;
+            }
+
+            const result = input * pressureFactors[from][to];
+            document.getElementById('pressureResult').value = result.toFixed(4);
+        }
+
+        // Data Storage Converter
+        function convertDataStorage(event) {
+            event.preventDefault();
+            const input = parseFloat(document.getElementById('dataInput').value);
+            const from = document.getElementById('dataFrom').value;
+            const to = document.getElementById('dataTo').value;
+
+            if (from === to) {
+                document.getElementById('dataResult').value = input.toFixed(4);
+                return;
+            }
+
+            const result = input * dataFactors[from][to];
+            document.getElementById('dataResult').value = result.toFixed(4);
+        }
+    </script>
+</body>
+</html>
